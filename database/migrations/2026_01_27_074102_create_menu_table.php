@@ -19,7 +19,6 @@ return new class extends Migration
             $table->integer('Urutan');
             $table->boolean('IsAktif');
             $table->string('Icon');
-            $table->foreignId('IdKategoriMenu')->nullable()->constrained('KategoriMenu', 'IdKategoriMenu');
             $table->timestamp('WaktuBuat')->nullable();
             $table->timestamp('WaktuUbahAkhir')->nullable();
         });

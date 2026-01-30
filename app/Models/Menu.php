@@ -24,7 +24,6 @@ class Menu extends Model
         'Urutan',
         'IsAktif',
         'Icon',
-        'IdKategoriMenu',
         'IdMenuParent',
     ];
 
@@ -37,11 +36,6 @@ class Menu extends Model
     }
 
     // Relationship
-
-    public function KategoriMenu(): BelongsTo
-    {
-        return $this->belongsTo(KategoriMenu::class, 'IdKategoriMenu', 'IdKategoriMenu');
-    }
 
     public function Parent(): BelongsTo
     {

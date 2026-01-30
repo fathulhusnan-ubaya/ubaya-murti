@@ -61,16 +61,7 @@ class User extends Authenticatable
 
         // Menu
 
-        if ($role->Nama == 'Administrator') {
-            $my['DaftarKategori'] = KategoriMenu::all();
-        } else {
-            $categories = $role->Menu->pluck('IdKategoriMenu');
-            $my['DaftarKategori'] = KategoriMenu::whereIn('IdKategoriMenu', $categories)->distinct()->get();
-        }
-
-        $my['KategoriAktif'] = $my['DaftarKategori']->first();
-        $my['Menu'] = $my['KategoriAktif']
-            ->Menu()
+        $my['Menu'] = Menu::query()
             ->whereNull('IdMenuParent')
             ->when($role->Nama != 'Administrator', fn ($query) => $query->whereIn('IdMenu', $menus))
             ->orderBy('Urutan')

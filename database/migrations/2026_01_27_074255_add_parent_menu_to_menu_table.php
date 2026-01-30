@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('Menu', function (Blueprint $table) {
-            $table->foreignId('IdMenuParent')->after('IdKategoriMenu')->nullable()->constrained('Menu', 'IdMenu');
+            $table->foreignId('IdMenuParent')->after('IdMenu')->nullable()->constrained('Menu', 'IdMenu');
         });
     }
 

@@ -35,7 +35,7 @@
     <nav class="page-sidebar shadow-sm" data-pages="sidebar">
         {{-- Logo --}}
         <div class="sidebar-header text-center mt-4">
-            <img src="{{ asset('img/logo_lldikti.png') }}" alt="logo" data-src="{{ asset('img/logo_lldikti.png') }}" data-src-retina="{{ asset('img/logo_lldikti.png') }}" width="100%">
+            <img src="{{ asset('img/logo.png') }}" alt="logo" data-src="{{ asset('img/logo.png') }}" data-src-retina="{{ asset('img/logo.png') }}" width="100%">
         </div>
 
         {{-- Sidebar Menu --}}
