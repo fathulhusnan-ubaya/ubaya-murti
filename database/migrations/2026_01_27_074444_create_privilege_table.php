@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('RolePrivilege', function (Blueprint $table) {
+        Schema::create('Privilege', function (Blueprint $table) {
             $table->foreignId('IdRole')->constrained('Role', 'IdRole');
             $table->foreignId('IdMenu')->constrained('Menu', 'IdMenu');
             $table->primary(['IdRole', 'IdMenu']);
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('RolePrivilege');
+        Schema::dropIfExists('Privilege');
     }
 };

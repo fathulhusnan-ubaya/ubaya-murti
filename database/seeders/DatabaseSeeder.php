@@ -44,8 +44,8 @@ class DatabaseSeeder extends Seeder
             'Nama' => 'Administrator',
         ]);
 
-        $menu->RolePrivilege()->syncWithPivotValues($role->IdRole, ['Level' => 90]);
-        $childMenu->RolePrivilege()->syncWithPivotValues($role->IdRole, ['Level' => 90]);
+        $menu->Privilege()->syncWithPivotValues($role->IdRole, ['Level' => 90]);
+        $childMenu->Privilege()->syncWithPivotValues($role->IdRole, ['Level' => 90]);
 
         $user->Role()->sync($role->IdRole);
     }

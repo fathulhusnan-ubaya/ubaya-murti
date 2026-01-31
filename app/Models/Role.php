@@ -28,7 +28,7 @@ class Role extends Model
 
     public function Menu(): BelongsToMany
     {
-        return $this->belongsToMany(Menu::class, 'RolePrivilege', 'IdRole', 'IdMenu')->withPivot('Level')->withTimestamps();
+        return $this->belongsToMany(Menu::class, 'Privilege', 'IdRole', 'IdMenu')->withPivot('Level')->withTimestamps();
     }
 
     // Non-static Functions

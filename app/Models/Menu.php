@@ -10,11 +10,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Menu extends Model
 {
     protected $table = 'Menu';
-    
+
     protected $primaryKey = 'IdMenu';
-    
+
     const CREATED_AT = 'WaktuBuat';
-    
+
     const UPDATED_AT = 'WaktuUbahAkhir';
 
     protected $fillable = [
@@ -47,8 +47,8 @@ class Menu extends Model
         return $this->hasMany(Menu::class, 'IdMenuParent', 'IdMenu');
     }
 
-    public function RolePrivilege(): BelongsToMany
+    public function Privilege(): BelongsToMany
     {
-        return $this->belongsToMany(Role::class, 'RolePrivilege', 'IdMenu', 'IdRole')->withPivot('Level')->withTimestamps();
+        return $this->belongsToMany(Role::class, 'Privilege', 'IdMenu', 'IdRole')->withPivot('Level')->withTimestamps();
     }
 }
