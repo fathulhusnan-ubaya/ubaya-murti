@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\UpdatesUserPasswords;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UpdateUserPassword implements UpdatesUserPasswords
 {
@@ -27,6 +28,6 @@ class UpdateUserPassword implements UpdatesUserPasswords
             'password' => Hash::make($input['password']),
         ])->save();
 
-        redirect()->back()->with('status', 'password-updated');
+        Alert::toast('Password berhasil diubah!', 'success');
     }
 }
