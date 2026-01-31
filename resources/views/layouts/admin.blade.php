@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <meta charset="utf-8" />
-    <title>{{ !empty($judul) ? "$judul - " : ''}} SIAP</title>
+    <title>{{ !empty($judul) ? "$judul - " : ''}} Murti</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
     {{-- <link rel="apple-touch-icon" href="{{ asset('pages/ico/60.png') }}">
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('/pages/ico/76.png') }}">
@@ -28,6 +28,7 @@
     <link class="main-stylesheet" href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js" integrity="sha512-6sSYJqDreZRZGkJ3b+YfdhB3MzmuP9R7X1QZ6g5aIXhRvR1Y/N/P47jmnkENm7YL3oqsmI6AK+V6AD99uWDnIw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
 </head>
 <body class="fixed-header menu-pin" style="height: 100% !important;">
@@ -48,6 +49,9 @@
             {{-- Mobile Menu Toggle --}}
             <a href="#" class="btn-link toggle-sidebar d-lg-none pg-icon btn-icon-link" data-toggle="sidebar">menu</a>
 
+            <div class="">
+            </div>
+
             {{-- User --}}
             <div class="d-flex align-items-center">
                 <div class="pull-left p-r-10 fs-14 d-lg-inline-block d-none m-l-20">
@@ -60,12 +64,13 @@
                         </span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right profile-dropdown" role="menu">
-                        <a href="#" class="dropdown-item"><span><b>{{ auth()->user()->Nama }}</b><br>{{ session('my')->RoleAktif->Nama }}</span></a>
+                        <a href="{{ route('admin.user.profile') }}" class="dropdown-item"><span><b>{{ auth()->user()->Nama }}</b><br>{{ session('my')->RoleAktif->Nama }}</span></a>
                         <div class="dropdown-divider"></div>
                         {{-- Menu User --}}
                         <a href="{{route('admin.user.password')}}" class="dropdown-item">Ubah Password</a>
                         <a href="javascript:void();" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="dropdown-item">Logout</a>
                         <div class="dropdown-divider"></div>
+                        {{-- <span class="dropdown-item fs-12 hint-text">Last edited by David<br />on Friday at 5:27PM</span> --}}
                     </div>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
@@ -103,7 +108,7 @@
             <div class="container-fluid footer">
                 <div class="copyright sm-text-center">
                     <p class="small-text no-margin pull-left sm-pull-reset">
-                        ©2024 All Rights Reserved. SIAP dibuat oleh Tim SDPT LLDIKTI 7
+                        ©2026 All Rights Reserved. Murti dibuat oleh Sistem Informasi Manajemen Universitas Surabaya.
                     </p>
                     <div class="clearfix"></div>
                 </div>
@@ -153,8 +158,7 @@
                 });
             }
         })
-    </script>
-    <script>
+
         $(document).on('click', '.btn-dismiss', function() {
             $(this).parent().closest('div').remove();
         })
@@ -187,5 +191,3 @@
     @stack('scripts')
 </body>
 </html>
-
-

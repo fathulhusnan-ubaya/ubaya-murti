@@ -15,9 +15,13 @@ class User extends Authenticatable
     protected $table = 'User';
 
     protected $primaryKey = 'IdUser';
-    
+
+    protected $rememberTokenName = 'RememberToken';
+
+    protected $authPasswordName = 'Password';
+
     const CREATED_AT = 'WaktuBuat';
-    
+
     const UPDATED_AT = 'WaktuUbahAkhir';
 
     protected $fillable = [
@@ -34,11 +38,6 @@ class User extends Authenticatable
         'Password',
         'RememberToken',
     ];
-
-    public function getRememberTokenName()
-    {
-        return 'RememberToken';
-    }
 
     // Relationship
 
@@ -67,13 +66,13 @@ class User extends Authenticatable
             ->orderBy('Urutan')
             ->with(['Child' => function ($query) use ($role, $menus) {
                 $query->orderBy('Urutan')
-                    ->where("IsAktif", 1)
+                    ->where('IsAktif', 1)
                     ->when($role->Nama != 'Administrator', fn ($query) => $query->whereIn('IdMenu', $menus))
                     ->get();
             }])->get();
 
         // Simpan di session
-        
-        session()->put('my', (object)$my);
+
+        session()->put('my', (object) $my);
     }
 }

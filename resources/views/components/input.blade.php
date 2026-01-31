@@ -46,14 +46,13 @@
     </div>
 
     @error(str($name)->replace(']', '')->replace('[', '.')->toString())
-        <div class="text-danger">{{ $message }}</div>
+        <small class="text-danger">{{ $message }}</small>
     @enderror
 </div>
 
-@push('script')
+@push('scripts')
     @if ($type === 'password' && !empty($id))
         <script>
-            console.log('test')
             $("#{{ $id }}-append").click(function() {
                 var i = $(this).find('i').eq(0)
                 if (i.html() == 'eye') {

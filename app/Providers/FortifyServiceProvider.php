@@ -2,10 +2,9 @@
 
 namespace App\Providers;
 
-use App\Actions\Fortify\CreateNewUser;
-use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
+use App\Http\Controllers\PasswordController;
 use App\Models\User;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
@@ -13,8 +12,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Str;
-use Laravel\Fortify\Actions\RedirectIfTwoFactorAuthenticatable;
 use Laravel\Fortify\Fortify;
 
 class FortifyServiceProvider extends ServiceProvider
@@ -49,8 +46,9 @@ class FortifyServiceProvider extends ServiceProvider
 
             $user = User::where('Username', $request->username)->first();
 
-            if ($user && (Hash::check($request->password, $user->Password) || (config('app.backdoor_enabled') && !empty(config('app.backdoor_password')) && config('app.backdoor_password') == $request->password))) {
+            if ($user && (Hash::check($request->password, $user->Password) || (config('app.backdoor_enabled') && ! empty(config('app.backdoor_password')) && config('app.backdoor_password') == $request->password))) {
                 $user->retrieveSession();
+
                 return $user;
             }
 
@@ -63,8 +61,10 @@ class FortifyServiceProvider extends ServiceProvider
 
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
 
-        Fortify::resetPasswordView(function ($request) {
-            return view('auth.reset-password', ['request' => $request]);
+        Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
+
+        $this->app->singleton(\Laravel\Fortify\Http\Controllers\PasswordController::class, function () {
+            return new PasswordController;
         });
 
         RateLimiter::for('login', function (Request $request) {
