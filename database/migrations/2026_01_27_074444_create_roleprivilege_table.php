@@ -15,9 +15,9 @@ return new class extends Migration
             $table->foreignId('IdRole')->constrained('Role', 'IdRole');
             $table->foreignId('IdMenu')->constrained('Menu', 'IdMenu');
             $table->primary(['IdRole', 'IdMenu']);
+            $table->tinyInteger('Level');
             $table->timestamp('WaktuBuat')->nullable();
             $table->timestamp('WaktuUbahAkhir')->nullable();
-            $table->tinyInteger('Level');
         });
     }
 

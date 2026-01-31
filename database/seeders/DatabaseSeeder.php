@@ -2,7 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Menu;
+use App\Models\Role;
 use App\Models\User;
+use Hash;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,11 +18,27 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $user = User::create([
+            'Username' => 'root',
+            'Nama' => 'administrator',
+            'Email' => 'root@example.com',
+            'Password' => Hash::make('password'),
         ]);
+
+        $menu = Menu::create([
+            'Judul' => 'Administrator',
+            'RouteName' => 'admin',
+            'Urutan' => 1,
+            'IsAktif' => true,
+            'Icon' => 'fas fa-user',
+        ]);
+
+        $role = Role::create([
+            'Nama' => 'Administrator',
+        ]);
+
+        $menu->RolePrivilege()->syncWithPivotValues($role->IdRole, ['Level' => 90]);
+
+        $user->Role()->sync($role->IdRole);
     }
 }
