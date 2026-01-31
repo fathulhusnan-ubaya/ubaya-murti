@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Role extends Model
 {
     protected $table = 'Role';
-    
+
     protected $primaryKey = 'IdRole';
-    
+
     const CREATED_AT = 'WaktuBuat';
-    
+
     const UPDATED_AT = 'WaktuUbahAkhir';
 
     protected $fillable = [
@@ -35,10 +35,10 @@ class Role extends Model
 
     public function getLevelPermission(string $routeName): int
     {
-        if (auth()->user()->Role()->where("Role.Nama", "Administrator")->first()) { // Administrator
+        if (auth()->user()->Role()->where('Nama', 'Administrator')->first()) { // Administrator
             return 90;
         } else {
-            return $this->Menu()->where('RouteName', $routeName)->where('IsAktif', true)->firstOrFail()->pivot->Level;
+            return $this->Menu()->where('RouteName', $routeName)->where('IsAktif', true)->first()?->pivot?->Level ?? 0;
         }
     }
 }

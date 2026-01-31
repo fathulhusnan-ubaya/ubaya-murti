@@ -24,15 +24,15 @@ class PermissionCheckMiddleware
         if (empty($menu)) {
             $routeName = explode('.', $routeName);
             array_pop($routeName);
-            $routeName = implode('.', $routeName) . '.index';
+            $routeName = implode('.', $routeName).'.index';
 
             $menu = Menu::where('RouteName', $routeName)->pluck('RouteName')->first();
         }
 
         abort_if(empty($menu), 404, 'Menu tidak terdaftar');
 
-        if (!session('my')->RoleAktif->getLevelPermission($menu)) {
-            abort_if(!app()->isProduction(), 403, 'Hak akses belum disetting!');
+        if (! session('my')->RoleAktif->getLevelPermission($menu)) {
+            abort_if(! app()->isProduction(), 403, 'Hak akses belum disetting!');
             abort(404, 'Hak akses tidak ditemukan');
         }
 

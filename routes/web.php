@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,7 +15,8 @@ Route::group(['middleware' => ['auth', 'permission-check']], function () {
 
     Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
         Route::resource('menu', MenuController::class)->except(['show']);
-        Route::get('menu/urutan/{IdMenu}', [MenuController::class, 'getUrutan'])->name('menu.urutan')->withoutMiddleware('permission-check');
+        Route::get('menu/urutan/{IdMenu}', [MenuController::class, 'getUrutan'])->name('menu.urutan');
+        Route::resource('role', RoleController::class)->except(['show']);
         Route::resource('user', UserController::class)->except(['show']);
     });
 
