@@ -3,7 +3,7 @@
     'breadcrumbs' => [
         [
             'url' => '#',
-            'title' => "Master",
+            'title' => "Administrator",
         ]
     ]
 ])
