@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContohController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PrivilegeController;
 use App\Http\Controllers\RoleController;
@@ -28,4 +29,6 @@ Route::group(['middleware' => ['auth', 'permission-check']], function () {
         Route::view('profile', 'admin.user.profile')->name('profile')->withoutMiddleware('permission-check');
         Route::view('password', 'admin.user.password')->name('password')->withoutMiddleware('permission-check');
     });
+
+    Route::resource('contoh', ContohController::class)->except(['show']);
 });
