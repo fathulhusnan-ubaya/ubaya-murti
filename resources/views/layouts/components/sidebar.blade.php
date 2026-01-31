@@ -1,6 +1,6 @@
 <div class="sidebar-menu">
     <ul class="menu-items">
-        <li class="m-t-15 @if(Route::is('dashboard')) active @endif">
+        <li class="m-t-15 @if(Route::is('dashboard') || Route::is("user.*")) active @endif">
             <a href="{{ config('app.url') }}">
                 <span class="title">Dashboard</span>
             </a>

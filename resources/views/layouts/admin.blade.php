@@ -64,10 +64,10 @@
                         </span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right profile-dropdown" role="menu">
-                        <a href="{{ route('admin.user.profile') }}" class="dropdown-item"><span><b>{{ auth()->user()->Nama }}</b><br>{{ session('my')->RoleAktif->Nama }}</span></a>
+                        <a href="{{ route('user.profile') }}" class="dropdown-item"><span><b>{{ auth()->user()->Nama }}</b><br>{{ session('my')->RoleAktif->Nama }}</span></a>
                         <div class="dropdown-divider"></div>
                         {{-- Menu User --}}
-                        <a href="{{route('admin.user.password')}}" class="dropdown-item">Ubah Password</a>
+                        <a href="{{route('user.password')}}" class="dropdown-item">Ubah Password</a>
                         <a href="javascript:void();" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="dropdown-item">Logout</a>
                         <div class="dropdown-divider"></div>
                         {{-- <span class="dropdown-item fs-12 hint-text">Last edited by David<br />on Friday at 5:27PM</span> --}}
