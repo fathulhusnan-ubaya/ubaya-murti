@@ -27,10 +27,17 @@ class DatabaseSeeder extends Seeder
 
         $menu = Menu::create([
             'Judul' => 'Administrator',
-            'RouteName' => 'admin',
+            'RouteName' => 'admin.*',
             'Urutan' => 1,
             'IsAktif' => true,
-            'Icon' => 'fas fa-user',
+            'Icon' => 'shield',
+        ]);
+
+        $childMenu = $menu->Child()->create([
+            'Judul' => 'Menu',
+            'RouteName' => 'admin.menu.index',
+            'Urutan' => 1,
+            'IsAktif' => true,
         ]);
 
         $role = Role::create([
@@ -38,6 +45,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $menu->RolePrivilege()->syncWithPivotValues($role->IdRole, ['Level' => 90]);
+        $childMenu->RolePrivilege()->syncWithPivotValues($role->IdRole, ['Level' => 90]);
 
         $user->Role()->sync($role->IdRole);
     }

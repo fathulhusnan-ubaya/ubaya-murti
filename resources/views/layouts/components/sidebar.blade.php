@@ -7,7 +7,7 @@
             <span class="icon-thumbnail"><i data-feather="home"></i></span>
         </li>
         @foreach (session('my')->Menu as $menu)
-            @if ($menu->Submenu?->count() > 0)
+            @if ($menu->Child?->count() > 0)
                 <li class="@if(Route::is($menu->RouteName)) open active @endif">
                     <a href="javascript:;">
                         <span class="title">{{ $menu->Judul }}</span>
@@ -17,11 +17,11 @@
                         <span class="icon-thumbnail mr-1"><i data-feather="{{ $menu->Icon }}"></i></span>
                     @endempty
                     <ul class="sub-menu">
-                        @foreach ($menu->Submenu as $submenu)
+                        @foreach ($menu->Child as $child)
                             @php
-                                $indexRoute = $submenu->RouteName;
+                                $indexRoute = $child->RouteName;
                                 if (!str($indexRoute)->endsWith('*')) {
-                                    $names = explode('.', $submenu->RouteName);
+                                    $names = explode('.', $child->RouteName);
                                     $indexRoute = '';
                                     for ($i=0; $i < count($names) - 1; $i++) {
                                         $indexRoute .= $names[$i] . ".";
@@ -30,8 +30,8 @@
                                 }
                             @endphp
                             <li class="@if(Route::is($indexRoute)) active @endif">
-                                <a href="@if(Route::has($submenu->RouteName)) {{ route($submenu->RouteName, $submenu->RouteParam) }} @else {{ 'javascript:;' }} @endif">
-                                    {{ $submenu->Judul }}
+                                <a href="@if(Route::has($child->RouteName)) {{ route($child->RouteName, $child->RouteParams) }} @else {{ 'javascript:;' }} @endif">
+                                    {{ $child->Judul }}
                                 </a>
                             </li>
                         @endforeach
@@ -50,7 +50,7 @@
                     }
                 @endphp
                 <li class="@if(Route::is($indexRoute)) active @endif">
-                    <a href="@if(Route::has($menu->RouteName)) {{ str($menu->RouteName)->endsWith('*') ? 'javascript:;' : route($menu->RouteName, $menu->RouteParam) }} @else {{ 'javascript:;' }} @endif">
+                    <a href="@if(Route::has($menu->RouteName)) {{ str($menu->RouteName)->endsWith('*') ? 'javascript:;' : route($menu->RouteName, $menu->RouteParams) }} @else {{ 'javascript:;' }} @endif">
                         <span class="title">{{ $menu->Judul }}</span>
                     </a>
                     @empty($menu->Icon) @else

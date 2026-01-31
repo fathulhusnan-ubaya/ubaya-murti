@@ -18,7 +18,7 @@ return new class extends Migration
             $table->json('RouteParams')->nullable();
             $table->integer('Urutan');
             $table->boolean('IsAktif');
-            $table->string('Icon');
+            $table->string('Icon')->nullable();
             $table->timestamp('WaktuBuat')->nullable();
             $table->timestamp('WaktuUbahAkhir')->nullable();
         });
