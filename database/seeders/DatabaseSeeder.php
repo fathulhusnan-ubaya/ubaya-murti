@@ -27,19 +27,37 @@ class DatabaseSeeder extends Seeder
             'Icon' => 'shield',
         ]);
 
-        $childMenu = $menu->Child()->create([
+        $menu->Child()->create([
             'Judul' => 'Menu',
             'RouteName' => 'admin.menu.index',
             'Urutan' => 1,
             'IsAktif' => true,
         ]);
 
+        $menu->Child()->create([
+            'Judul' => 'Role',
+            'RouteName' => 'admin.role.index',
+            'Urutan' => 2,
+            'IsAktif' => true,
+        ]);
+
+        $menu->Child()->create([
+            'Judul' => 'Privilege',
+            'RouteName' => 'admin.privilege.index',
+            'Urutan' => 3,
+            'IsAktif' => true,
+        ]);
+
+        $menu->Child()->create([
+            'Judul' => 'User',
+            'RouteName' => 'admin.user.index',
+            'Urutan' => 4,
+            'IsAktif' => true,
+        ]);
+
         $role = Role::create([
             'Nama' => 'Administrator',
         ]);
-
-        $menu->Privilege()->syncWithPivotValues($role->IdRole, ['Level' => 90]);
-        $childMenu->Privilege()->syncWithPivotValues($role->IdRole, ['Level' => 90]);
 
         DB::table('UserRole')->insert([
             'IdUser' => 1,
