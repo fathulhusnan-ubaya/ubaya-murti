@@ -34,15 +34,15 @@ function loading() {
     });
 }
 
-function datatablesInit({selector, url, columns, orders = [1, 'asc'], data = {}, dom = '', withAction = true}) {
-    var column = [{ data: 'DT_RowIndex', orderable: false, searchable: false, className: "text-center"}]
+function datatablesInit({ selector, url, columns, orders = [1, 'asc'], data = {}, dom = '', withAction = true }) {
+    var column = [{ data: 'DT_RowIndex', orderable: false, searchable: false, className: "text-center" }]
 
     columns.forEach(row => {
         column.push(row)
     });
 
     if (withAction) {
-        column.push({ data: 'Aksi', orderable: false, searchable: false, className: "text-center"})
+        column.push({ data: 'Aksi', orderable: false, searchable: false, className: "text-center" })
     }
 
     if (dom == '') {
@@ -54,20 +54,20 @@ function datatablesInit({selector, url, columns, orders = [1, 'asc'], data = {},
         processing: true,
         serverSide: true,
         ajax: {
-            'url' : url,
-            'data' : data
+            'url': url,
+            'data': data
         },
         order: [
             orders
         ],
         columns: column,
         language: {
-            url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json'
+            url: '/js/datatables_id.json'
         },
     })
 }
 
-function select2Init({selector, url, allowClear = false, dropdownParent = null, minLength = 0, data = {}, placeholder = '-- Pilih --'}) {
+function select2Init({ selector, url, allowClear = false, dropdownParent = null, minLength = 0, data = {}, placeholder = '-- Pilih --' }) {
     let settings = {
         placeholder: placeholder,
         minimumInputLength: minLength,
@@ -78,7 +78,7 @@ function select2Init({selector, url, allowClear = false, dropdownParent = null, 
             dataType: 'json',
             delay: 250,
             cache: true,
-            data: function(params) {
+            data: function (params) {
                 return {
                     search: params.term,
                     ...data,
@@ -102,11 +102,11 @@ function select2Init({selector, url, allowClear = false, dropdownParent = null, 
     $(selector).select2(settings)
 }
 
-function ajaxGetRequest({url, modal = "", successCallback = null, errorCallback = null, withToast = false}) {
+function ajaxGetRequest({ url, modal = "", successCallback = null, errorCallback = null, withToast = false }) {
     $.ajax({
         type: "GET",
         url: url,
-        success: function(result) {
+        success: function (result) {
             $(modal).modal('hide')
             if (typeof successCallback == 'function') successCallback(result)
             let icon = 'success';
@@ -130,7 +130,7 @@ function ajaxGetRequest({url, modal = "", successCallback = null, errorCallback 
     })
 }
 
-function ajaxPostRequest({url, data, modal = "", successCallback = null, errorCallback = null, withToast = true}) {
+function ajaxPostRequest({ url, data, modal = "", successCallback = null, errorCallback = null, withToast = true }) {
     const formData = new FormData()
     formData.append('_method', 'POST')
     formData.append('_token', $('meta[name="csrf-token"]').attr('content'))
@@ -146,7 +146,7 @@ function ajaxPostRequest({url, data, modal = "", successCallback = null, errorCa
         contentType: false,
         cache: false,
         timeout: 800000,
-        success: function(result) {
+        success: function (result) {
             $(modal).modal('hide')
             if (typeof successCallback == 'function') successCallback(result)
             let icon = 'success';
