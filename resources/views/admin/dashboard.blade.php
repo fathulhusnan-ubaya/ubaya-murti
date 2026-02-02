@@ -15,13 +15,13 @@
                                         <div class="row-xs-height">
                                             <div class="social-user-profile col-xs-height text-center col-top">
                                                 <div class="thumbnail-wrapper d48 circular bordered b-white">
-                                                    <img alt="{{ auth()->user()->Nama }}" data-src-retina="https://ui-avatars.com/api/?name={{ auth()->user()->Nama }}" data-src="https://ui-avatars.com/api/?name={{ auth()->user()->Nama }}" src="https://ui-avatars.com/api/?name={{ auth()->user()->Nama }}" width="55" height="55" style="object-fit: cover;object-position: 50% 0px;">
+                                                    <img alt="{{ auth()->user()->name }}" data-src-retina="https://ui-avatars.com/api/?name={{ auth()->user()->name }}" data-src="https://ui-avatars.com/api/?name={{ auth()->user()->name }}" src="https://ui-avatars.com/api/?name={{ auth()->user()->name }}" width="55" height="55" style="object-fit: cover;object-position: 50% 0px;">
                                                 </div>
                                                 <br>
                                                 <i class="pg-icon text-success m-t-10">tick_circle</i>
                                             </div>
                                             <div class="col-xs-height p-l-20">
-                                                <h3 class="no-margin p-b-5">{{ auth()->user()->Nama }}</h3>
+                                                <h3 class="no-margin p-b-5">{{ auth()->user()->name }}</h3>
                                                 <p class="no-margin fs-16">Selamat datang di Portal Murti</p>
                                             </div>
                                         </div>

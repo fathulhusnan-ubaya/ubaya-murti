@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ContohModel extends Model
 {
+    protected $connection = 'local';
+    
     protected $table = 'Contoh';
 
     protected $primaryKey = 'IdContoh';

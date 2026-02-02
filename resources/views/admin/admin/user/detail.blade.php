@@ -22,10 +22,8 @@
         <div class="col-md-6">
             <x-card :header="$judul">
                 <x-form :method="empty($user) ? 'POST' : 'PUT'" :action="empty($user) ? route('admin.user.store') : route('admin.user.update', $user)" submit="Simpan">
-                    <x-input label="Username" id="input-username" name="username" :value="$user->Username ?? ''" class="mb-3" readonly="{{empty($user)?'0':'1'}}" required/>
-                    <x-input label="Email" id="input-email" name="email" :value="$user->Email ?? ''" class="mb-3" readonly="{{empty($user)?'0':'1'}}" required/>
-                    <x-input label="Nama" id="input-nama" name="nama" :value="$user->Nama ?? ''" class="mb-3" required/>
-                    <x-input label="Password" id="input-password" name="password" class="mb-3" value="" type="password" required="{{empty($user)?'1':'0'}}" />
+                    <x-input label="Username" id="input-username" name="username" :value="$user->username ?? ''" class="mb-3" readonly required/>
+                    <x-input label="Nama" id="input-nama" name="name" :value="$user->name ?? ''" class="mb-3" readonly required/>
                     @php
                         $idRole = [];
                         foreach($user->Role ?? [] as $role) {

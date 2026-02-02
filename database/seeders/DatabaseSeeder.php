@@ -8,6 +8,7 @@ use App\Models\User;
 use Hash;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,13 +19,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::create([
-            'Username' => 'root',
-            'Nama' => 'Administrator',
-            'Email' => 'root@example.com',
-            'Password' => Hash::make('password'),
-        ]);
-
         $menu = Menu::create([
             'Judul' => 'Administrator',
             'RouteName' => 'admin.*',
@@ -47,6 +41,9 @@ class DatabaseSeeder extends Seeder
         $menu->Privilege()->syncWithPivotValues($role->IdRole, ['Level' => 90]);
         $childMenu->Privilege()->syncWithPivotValues($role->IdRole, ['Level' => 90]);
 
-        $user->Role()->sync($role->IdRole);
+        DB::table('UserRole')->insert([
+            'IdUser' => 1,
+            'IdRole' => $role->IdRole,
+        ]);
     }
 }

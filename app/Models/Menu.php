@@ -2,13 +2,18 @@
 
 namespace App\Models;
 
+use App\Observers\MenuObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+#[ObservedBy(MenuObserver::class)]
 class Menu extends Model
 {
+    protected $connection = 'local';
+    
     protected $table = 'Menu';
 
     protected $primaryKey = 'IdMenu';

@@ -22,13 +22,13 @@ Route::group(['middleware' => ['auth', 'permission-check']], function () {
         Route::resource('role', RoleController::class)->except(['create', 'show', 'edit']);
         Route::resource('privilege', PrivilegeController::class)->except(['show', 'edit', 'update', 'destroy']);
         Route::delete('privilege/{role}/{menu}', [PrivilegeController::class, 'destroy'])->name('privilege.destroy');
-        Route::resource('user', UserController::class)->except(['show']);
+        Route::resource('user', UserController::class)->except(['show', 'create', 'post']);
     });
 
-    Route::group(['as' => 'user.', 'prefix' => 'user'], function () {
-        Route::view('profile', 'admin.user.profile')->name('profile')->withoutMiddleware('permission-check');
-        Route::view('password', 'admin.user.password')->name('password')->withoutMiddleware('permission-check');
-    });
+    // Route::group(['as' => 'user.', 'prefix' => 'user'], function () {
+    //     Route::view('profile', 'admin.user.profile')->name('profile')->withoutMiddleware('permission-check');
+    //     Route::view('password', 'admin.user.password')->name('password')->withoutMiddleware('permission-check');
+    // });
 
-    Route::resource('contoh', ContohController::class)->except(['show']);
+    // Route::resource('contoh', ContohController::class)->except(['show']);
 });

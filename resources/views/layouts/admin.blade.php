@@ -54,22 +54,18 @@
             {{-- User --}}
             <div class="d-flex align-items-center">
                 <div class="pull-left p-r-10 fs-14 d-lg-inline-block d-none m-l-20">
-                    <span class="bold">{{ auth()->user()->Nama }}</span>
+                    <span class="bold">{{ auth()->user()->name }}</span>
                 </div>
                 <div class="dropdown pull-right d-lg-block d-none">
                     <button class="profile-dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="profile dropdown">
                         <span class="thumbnail-wrapper d32 circular inline">
-                            <img src="https://ui-avatars.com/api/?name={{ auth()->user()->Nama }}" alt="{{ auth()->user()->Nama }}" data-src="https://ui-avatars.com/api/?name={{ auth()->user()->Nama }}" data-src-retina="https://ui-avatars.com/api/?name={{ auth()->user()->Nama }}" width="32" height="32">
+                            <img src="https://ui-avatars.com/api/?name={{ auth()->user()->name }}" alt="{{ auth()->user()->name }}" data-src="https://ui-avatars.com/api/?name={{ auth()->user()->name }}" data-src-retina="https://ui-avatars.com/api/?name={{ auth()->user()->name }}" width="32" height="32">
                         </span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right profile-dropdown" role="menu">
-                        <a href="{{ route('user.profile') }}" class="dropdown-item"><span><b>{{ auth()->user()->Nama }}</b><br>{{ session('my')->RoleAktif->Nama }}</span></a>
+                        <div class="dropdown-item"><span><b>{{ auth()->user()->name }}</b><br>{{ session('my')->RoleAktif->Nama }}</span></div>
                         <div class="dropdown-divider"></div>
-                        {{-- Menu User --}}
-                        <a href="{{route('user.password')}}" class="dropdown-item">Ubah Password</a>
                         <a href="javascript:void();" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="dropdown-item">Logout</a>
-                        <div class="dropdown-divider"></div>
-                        {{-- <span class="dropdown-item fs-12 hint-text">Last edited by David<br />on Friday at 5:27PM</span> --}}
                     </div>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf

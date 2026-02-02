@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('UserRole', function (Blueprint $table) {
-            $table->foreignId('IdUser')->constrained('User', 'IdUser');
+            $table->integer('IdUser');
             $table->foreignId('IdRole')->constrained('Role', 'IdRole');
             $table->primary(['IdUser', 'IdRole']);
         });

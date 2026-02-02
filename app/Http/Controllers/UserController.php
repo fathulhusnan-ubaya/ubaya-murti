@@ -19,64 +19,17 @@ class UserController extends Controller
         Gate::authorize('accessable');
 
         if (request()->ajax()) {
-            $daftarUser = User::query();
+            $daftarUser = User::with('Role');
 
             return datatables($daftarUser)
                 ->addIndexColumn()
-                ->editColumn('Aksi', function ($user) {
-                    $buttons = "<a href='".route('admin.user.edit', $user)."' class='btn btn-primary mx-1'><i class='fa-solid fa-edit mr-2'></i>Ubah</a>";
-                    $buttons .= "<button class='btn btn-danger btn-delete mx-1' data-id='{$user->IdUser}' data-nama='{$user->Nama}'><i class='fa-solid fa-trash mr-2'></i>Hapus</button>";
-
-                    return $buttons;
-                })
+                ->editColumn('role', fn ($user) => $user->Role?->pluck('Nama')->implode(', '))
+                ->editColumn('Aksi', fn ($user) => "<a href='".route('admin.user.edit', $user)."' class='btn btn-primary mx-1'><i class='fa-solid fa-edit mr-2'></i>Ubah</a>")
                 ->rawColumns(['Aksi'])
                 ->toJson();
         }
 
         return view('admin.admin.user.index');
-    }
-
-    public function create(): View
-    {
-        Gate::authorize('accessable');
-
-        $daftarRole = Role::pluck('Nama', 'IdRole');
-
-        return view('admin.admin.user.detail', compact('daftarRole'));
-    }
-
-    public function store(UserRequest $request): RedirectResponse
-    {
-        Gate::authorize('accessable');
-
-        try {
-            DB::beginTransaction();
-
-            $user = User::create([
-                'Username' => $request->username,
-                'Nama' => $request->nama,
-                'Email' => $request->email,
-                'Password' => Hash::make($request->password),
-            ]);
-
-            $user->Role()->sync($request->validated()['Role']);
-
-            DB::commit();
-
-            toast('Berhasil menambahkan user baru!', 'success');
-
-            return to_route('admin.user.edit', $user);
-        } catch (\Throwable $th) {
-            DB::rollBack();
-
-            if (! app()->isProduction()) {
-                toast('Gagal menambahkan user baru!<br>(terjadi: '.date('Y-m-d H:i:s').')'.'<br>'.$th->getMessage(), 'error');
-            } else {
-                toast('Gagal menambahkan user baru!<br>(terjadi: '.date('Y-m-d H:i:s').')', 'error');
-            }
-
-            return back();
-        }
     }
 
     public function edit(User $user): View
@@ -95,17 +48,14 @@ class UserController extends Controller
         try {
             DB::beginTransaction();
 
-            $update = [
-                'Nama' => $request->nama,
-            ];
+            DB::table('UserRole')->where('IdUser', $user->id)->delete();
 
-            if ($request->password) {
-                $update['Password'] = Hash::make($request->password);
+            foreach ($request->validated()['Role'] as $role) {
+                DB::table('UserRole')->insert([
+                    'IdUser' => $user->id,
+                    'IdRole' => $role,
+                ]);
             }
-
-            $user->update($update);
-
-            $user->Role()->sync($request->validated()['Role']);
 
             DB::commit();
 

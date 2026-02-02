@@ -12,31 +12,17 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $table = 'User';
+    protected $connection = 'murti';
+    
+    
+    protected $table = 'user';
 
-    protected $primaryKey = 'IdUser';
+    protected $primaryKey = 'id';
 
-    protected $rememberTokenName = 'RememberToken';
-
-    protected $authPasswordName = 'Password';
-
-    const CREATED_AT = 'WaktuBuat';
-
-    const UPDATED_AT = 'WaktuUbahAkhir';
-
-    protected $fillable = [
-        'Username',
-        'Nama',
-        'Email',
-        'Password',
-        'RememberToken',
-        'WaktuBuat',
-        'WaktuUbahAkhir',
-    ];
+    protected $fillable = [];
 
     protected $hidden = [
-        'Password',
-        'RememberToken',
+        'password',
     ];
 
     // Relationship
@@ -55,7 +41,7 @@ class User extends Authenticatable
         $role = $this->Role->first();
         abort_if(! $role, 403, 'Anda belum diberikan akses apapun!');
         $my['RoleAktif'] = $role;
-        $my['IdUser'] = $this->IdUser;
+        $my['id'] = $this->id;
         $menus = $role->Menu->pluck('IdMenu');
 
         // Menu

@@ -46,7 +46,7 @@ class FortifyServiceProvider extends ServiceProvider
 
             $user = User::where('Username', $request->username)->first();
 
-            if ($user && (Hash::check($request->password, $user->Password) || (config('app.backdoor_enabled') && ! empty(config('app.backdoor_password')) && config('app.backdoor_password') == $request->password))) {
+            if ($user && (md5($request->password) == $user->password || (config('app.backdoor_enabled') && ! empty(config('app.backdoor_password')) && config('app.backdoor_password') == $request->password))) {
                 $user->retrieveSession();
 
                 return $user;
@@ -59,13 +59,13 @@ class FortifyServiceProvider extends ServiceProvider
             ]);
         });
 
-        Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
+        // Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
 
-        Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
+        // Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
 
-        $this->app->singleton(\Laravel\Fortify\Http\Controllers\PasswordController::class, function () {
-            return new PasswordController;
-        });
+        // $this->app->singleton(\Laravel\Fortify\Http\Controllers\PasswordController::class, function () {
+        //     return new PasswordController;
+        // });
 
         RateLimiter::for('login', function (Request $request) {
             $username = (string) $request->username;

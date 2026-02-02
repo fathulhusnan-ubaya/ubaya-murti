@@ -9,8 +9,6 @@
 ])
 
 @section('contents')
-    <x-button icon="fa-plus" size="lg" href="{{ route('admin.user.create') }}" class="mb-3">Tambah</x-button>
-
     <x-card header="Daftar User">
         <x-table id="table">
             <x-slot name="thead">
@@ -18,7 +16,7 @@
                     <td width="50px">No.</td>
                     <td width="200px">Username</td>
                     <td>Nama</td>
-                    <td>Email</td>
+                    <td>Role</td>
                     <td width="350px">Aksi</td>
                 </tr>
             </x-slot>
@@ -35,9 +33,9 @@
                 selector: "#table",
                 url: "{{ route('admin.user.index') }}",
                 columns: [
-                    { data: "Username" },
-                    { data: "Nama"},
-                    { data: "Email" },
+                    { data: "username" },
+                    { data: "name"},
+                    { data: "role" },
                 ],
                 withAction: true,
             })

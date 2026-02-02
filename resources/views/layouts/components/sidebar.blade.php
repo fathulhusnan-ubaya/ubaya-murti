@@ -59,6 +59,12 @@
                 </li>
             @endif
         @endforeach
+        <li class="d-block d-lg-none">
+            <a href="javascript:void();" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <span class="title">Logout</span>
+            </a>
+            <span class="icon-thumbnail"><i data-feather="log-out"></i></span>
+        </li>
     </ul>
     <div class="clearfix"></div>
 </div>

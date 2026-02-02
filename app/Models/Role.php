@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Role extends Model
 {
+    protected $connection = 'local';
+
     protected $table = 'Role';
 
     protected $primaryKey = 'IdRole';
